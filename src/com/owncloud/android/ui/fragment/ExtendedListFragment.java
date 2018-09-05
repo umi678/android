@@ -42,6 +42,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,6 @@ public class ExtendedListFragment extends Fragment
     protected static final String ARG_JUST_FOLDERS = ExtendedListFragment.class.getCanonicalName() + ".JUST_FOLDERS";
 
     private ProgressBar mProgressBar;
-    private View mShadowView;
 
     protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
@@ -151,7 +151,6 @@ public class ExtendedListFragment extends Fragment
         View v = inflater.inflate(R.layout.list_fragment, null);
 
         mProgressBar = v.findViewById(R.id.syncProgressBar);
-        mShadowView = v.findViewById(R.id.shadow_view);
 
         mListView = v.findViewById(R.id.list_root);
         mListView.setOnItemClickListener(this);
@@ -440,14 +439,6 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
-    public ProgressBar getProgressBar(){
-        return mProgressBar;
-    }
-
-    public View getShadowView(){
-        return mShadowView;
-    }
-
     /**
      * TODO doc
      * @param text
@@ -465,8 +456,6 @@ public class ExtendedListFragment extends Fragment
 
     public void setProgressBarAsIndeterminate(boolean indeterminate) {
         Log_OC.d(TAG, "Setting progress visibility to " + indeterminate);
-        mShadowView.setVisibility(View.GONE);
-        mProgressBar.setVisibility(View.VISIBLE);
         mProgressBar.setIndeterminate(indeterminate);
         mProgressBar.postInvalidate();
     }
